@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FitLens - Seu novo olhar para uma vida mais saudável</title>
+
+    <style>
+        body {
+            margin: 0;
+            font-family: Arial, Helvetica, sans-serif;
+            background: #f6f6f6;
+            color: #333;
+        }
+
+        header {
+            background: linear-gradient(135deg, #08c79c, #0fa56d);
+            color: white;
+            padding: 50px 20px;
+            text-align: center;
+        }
+
+        header h1 {
+            margin: 0;
+            font-size: 3rem;
+        }
+
+        header p {
+            font-size: 1.3rem;
+            margin-top: 10px;
+            opacity: 0.9;
+        }
+
+        .container {
+            width: 90%;
+            max-width: 1100px;
+            margin: auto;
+            padding: 40px 0;
+        }
+
+        .section {
+            margin-bottom: 60px;
+        }
+
+        h2 {
+            color: #0fa56d;
+            font-size: 2rem;
+            margin-bottom: 10px;
+        }
+
+        .features ul {
+            list-style: none;
+            padding: 0;
+        }
+
+        .features li {
+            background: white;
+            margin: 10px 0;
+            padding: 15px 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.08);
+            font-size: 1.1rem;
+        }
+
+        .cta {
+            text-align: center;
+            margin-top: 40px;
+        }
+
+        .button {
+            background: #0fa56d;
+            color: white;
+            padding: 15px 30px;
+            border-radius: 8px;
+            font-size: 1.3rem;
+            text-decoration: none;
+            transition: 0.3s;
+        }
+
+        .button:hover {
+            background: #0c8d5b;
+        }
+
+        .video-section {
+            background: #ffffff;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 2px 12px rgba(0,0,0,0.1);
+        }
+
+        footer {
+            background: #0fa56d;
+            color: white;
+            text-align: center;
+            padding: 15px;
+            margin-top: 40px;
+        }
+    </style>
+</head>
+
+<body>
+
+<header>
+    <h1>FitLens</h1>
+    <p>Seu novo olhar para uma vida mais saudável</p>
+</header>
+
+<div class="container">
+
+    <!-- Seção 1 - Sobre -->
+    <div class="section">
+        <h2>O que é o FitLens?</h2>
+        <p>
+            O <strong>FitLens</strong> é o app que escaneia alimentos em segundos e mostra tudo o que você precisa saber 
+            para fazer escolhas mais saudáveis no dia a dia. Ele analisa informações nutricionais, recomenda opções melhores,
+            cria dietas personalizadas e acompanha seu progresso.
+        </p>
+    </div>
+
+    <!-- Seção 2 - Recursos -->
+    <div class="section features">
+        <h2>✨ O que o FitLens faz por você?</h2>
+
+        <ul>
+            <li>🔍 Escaneia qualquer alimento e mostra informações nutricionais completas.</li>
+            <li>🥗 Sugere dietas personalizadas para perder peso, ganhar massa ou melhorar a alimentação.</li>
+            <li>⚖️ Acompanha seu progresso com gráficos e lembretes inteligentes.</li>
+            <li>👩‍⚕️ Recebe recomendações saudáveis feitas por especialistas.</li>
+            <li>🛒 Identifica opções mais saudáveis durante suas compras.</li>
+        </ul>
+    </div>
+
+    <!-- Seção 3 - Roteiro do Vídeo -->
+    <div class="section video-section">
+        <h2>🎬 Roteiro do Vídeo Promocional</h2>
+        <p><strong>Duração:</strong> 30–40 segundos</p>
+
+        <h3>📍 Cena 1 — Introdução (0s–3s)</h3>
+        <p>Consumidor no mercado olhando um produto com dúvida. Texto: “Você também nunca sabe se o alimento que você come é realmente saudável?”</p>
+
+        <h3>📍 Cena 2 — Apresentação (3s–7s)</h3>
+        <p>Mostra o app FitLens. “O app que escaneia seus alimentos e mostra tudo em segundos!”</p>
+
+        <h3>📍 Cena 3 — Escaneamento (7s–13s)</h3>
+        <p>Escaneamento do alimento e informações na tela. “Basta apontar!”</p>
+
+        <h3>📍 Cena 4 — Dietas (13s–18s)</h3>
+        <p>App sugerindo uma dieta personalizada. “Dietas feitas pra você!”</p>
+
+        <h3>📍 Cena 5 — Progresso (18s–24s)</h3>
+        <p>Gráficos e evolução. “Acompanhe seu progresso.”</p>
+
+        <h3>📍 Cena 6 — Compra saudável (24s–32s)</h3>
+        <p>Usuário escolhendo itens melhores. “Escolha melhor todos os dias.”</p>
+
+        <h3>📍 Cena 7 — Encerramento (32s–40s)</h3>
+        <p>Logo do FitLens e chamada final: “FitLens — escaneie, entenda, escolha melhor.”</p>
+    </div>
+
+    <!-- CTA -->
+    <div class="cta">
+        <a href="#" class="button">Baixar FitLens Agora</a>
+    </div>
+
+</div>
+
+<footer>
+    FitLens © 2025 – Alimentação inteligente começa aqui.
+</footer>
+
+</body>
+</html>
