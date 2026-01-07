@@ -1,172 +1,133 @@
+html
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>FitLens - Seu novo olhar para uma vida mais saudável</title>
-
+    <title>FitLens - Painel Inteligente 2026</title>
     <style>
-        body {
-            margin: 0;
-            font-family: Arial, Helvetica, sans-serif;
-            background: #f6f6f6;
-            color: #333;
-        }
+        body { margin: 0; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background: #f0f2f5; color: #333; }
+        header { background: linear-gradient(135deg, #08c79c, #0fa56d); color: white; padding: 40px 20px; text-align: center; box-shadow: 0 4px 10px rgba(0,0,0,0.1); }
+        .container { width: 90%; max-width: 1100px; margin: auto; padding: 30px 0; }
+        
+        .card { background: white; padding: 25px; border-radius: 15px; box-shadow: 0 4px 15px rgba(0,0,0,0.05); margin-bottom: 30px; border-top: 5px solid #0fa56d; }
+        .btn-group { display: flex; gap: 10px; flex-wrap: wrap; justify-content: center; margin-bottom: 20px; }
+        
+        button { border: none; padding: 12px 25px; border-radius: 8px; font-weight: bold; cursor: pointer; transition: 0.3s; font-size: 1rem; }
+        .btn-treino { background: #0fa56d; color: white; }
+        .btn-dieta { background: #08c79c; color: white; }
+        .btn-save { background: #ff9800; color: white; margin-top: 15px; display: none; width: 100%; }
+        button:hover { opacity: 0.9; transform: translateY(-2px); }
 
-        header {
-            background: linear-gradient(135deg, #08c79c, #0fa56d);
-            color: white;
-            padding: 50px 20px;
-            text-align: center;
-        }
-
-        header h1 {
-            margin: 0;
-            font-size: 3rem;
-        }
-
-        header p {
-            font-size: 1.3rem;
-            margin-top: 10px;
-            opacity: 0.9;
-        }
-
-        .container {
-            width: 90%;
-            max-width: 1100px;
-            margin: auto;
-            padding: 40px 0;
-        }
-
-        .section {
-            margin-bottom: 60px;
-        }
-
-        h2 {
-            color: #0fa56d;
-            font-size: 2rem;
-            margin-bottom: 10px;
-        }
-
-        .features ul {
-            list-style: none;
-            padding: 0;
-        }
-
-        .features li {
-            background: white;
-            margin: 10px 0;
-            padding: 15px 20px;
-            border-radius: 8px;
-            box-shadow: 0 2px 10px rgba(0,0,0,0.08);
-            font-size: 1.1rem;
-        }
-
-        .cta {
-            text-align: center;
-            margin-top: 40px;
-        }
-
-        .button {
-            background: #0fa56d;
-            color: white;
-            padding: 15px 30px;
-            border-radius: 8px;
-            font-size: 1.3rem;
-            text-decoration: none;
-            transition: 0.3s;
-        }
-
-        .button:hover {
-            background: #0c8d5b;
-        }
-
-        .video-section {
-            background: #ffffff;
-            padding: 30px;
-            border-radius: 10px;
-            box-shadow: 0 2px 12px rgba(0,0,0,0.1);
-        }
-
-        footer {
-            background: #0fa56d;
-            color: white;
-            text-align: center;
-            padding: 15px;
-            margin-top: 40px;
-        }
+        #display-result { margin-top: 20px; padding: 20px; background: #f9f9f9; border-radius: 10px; border-left: 4px solid #0fa56d; min-height: 100px; }
+        .profile-section { background: #fff; border-left: 5px solid #ff9800; }
+        .saved-item { background: #fff8e1; padding: 10px; border-radius: 5px; margin-bottom: 10px; border: 1px solid #ffe082; }
     </style>
 </head>
-
 <body>
 
 <header>
-    <h1>FitLens</h1>
-    <p>Seu novo olhar para uma vida mais saudável</p>
+    <h1>FitLens v1.2</h1>
+    <p>Seu assistente de saúde inteligente para 2026</p>
 </header>
 
 <div class="container">
 
-    <!-- Seção 1 - Sobre -->
-    <div class="section">
-        <h2>O que é o FitLens?</h2>
-        <p>
-            O <strong>FitLens</strong> é o app que escaneia alimentos em segundos e mostra tudo o que você precisa saber 
-            para fazer escolhas mais saudáveis no dia a dia. Ele analisa informações nutricionais, recomenda opções melhores,
-            cria dietas personalizadas e acompanha seu progresso.
-        </p>
+    <!-- GERADOR DE CONTEÚDO -->
+    <div class="card">
+        <h2 style="text-align:center">O que vamos focar hoje?</h2>
+        <div class="btn-group">
+            <button class="btn-treino" onclick="gerar('treino')">🏋️ Gerar Treino</button>
+            <button class="btn-dieta" onclick="gerar('dieta')">🥗 Gerar Dieta</button>
+        </div>
+
+        <div id="display-result">
+            <h3 id="res-titulo">Selecione uma opção acima...</h3>
+            <div id="res-corpo">Aguardando comando...</div>
+            <button id="btn-salvar" class="btn-save" onclick="salvarNoPerfil()">⭐ Salvar no Meu Perfil</button>
+        </div>
     </div>
 
-    <!-- Seção 2 - Recursos -->
-    <div class="section features">
-        <h2>✨ O que o FitLens faz por você?</h2>
-
-        <ul>
-            <li>🔍 Escaneia qualquer alimento e mostra informações nutricionais completas.</li>
-            <li>🥗 Sugere dietas personalizadas para perder peso, ganhar massa ou melhorar a alimentação.</li>
-            <li>⚖️ Acompanha seu progresso com gráficos e lembretes inteligentes.</li>
-            <li>👩‍⚕️ Recebe recomendações saudáveis feitas por especialistas.</li>
-            <li>🛒 Identifica opções mais saudáveis durante suas compras.</li>
-        </ul>
-    </div>
-
-    <!-- Seção 3 - Roteiro do Vídeo -->
-    <div class="section video-section">
-        <h2>🎬 Roteiro do Vídeo Promocional</h2>
-        <p><strong>Duração:</strong> 30–40 segundos</p>
-
-        <h3>📍 Cena 1 — Introdução (0s–3s)</h3>
-        <p>Consumidor no mercado olhando um produto com dúvida. Texto: “Você também nunca sabe se o alimento que você come é realmente saudável?”</p>
-
-        <h3>📍 Cena 2 — Apresentação (3s–7s)</h3>
-        <p>Mostra o app FitLens. “O app que escaneia seus alimentos e mostra tudo em segundos!”</p>
-
-        <h3>📍 Cena 3 — Escaneamento (7s–13s)</h3>
-        <p>Escaneamento do alimento e informações na tela. “Basta apontar!”</p>
-
-        <h3>📍 Cena 4 — Dietas (13s–18s)</h3>
-        <p>App sugerindo uma dieta personalizada. “Dietas feitas pra você!”</p>
-
-        <h3>📍 Cena 5 — Progresso (18s–24s)</h3>
-        <p>Gráficos e evolução. “Acompanhe seu progresso.”</p>
-
-        <h3>📍 Cena 6 — Compra saudável (24s–32s)</h3>
-        <p>Usuário escolhendo itens melhores. “Escolha melhor todos os dias.”</p>
-
-        <h3>📍 Cena 7 — Encerramento (32s–40s)</h3>
-        <p>Logo do FitLens e chamada final: “FitLens — escaneie, entenda, escolha melhor.”</p>
-    </div>
-
-    <!-- CTA -->
-    <div class="cta">
-        <a href="#" class="button">Baixar FitLens Agora</a>
+    <!-- MEU PERFIL (DADOS SALVOS) -->
+    <div class="card profile-section">
+        <h2>📂 Meu Plano Salvo</h2>
+        <div id="perfil-lista">Nenhum plano salvo ainda.</div>
+        <button onclick="limparPerfil()" style="background:none; color:red; font-size:0.8rem; margin-top:10px; cursor:pointer;">Limpar tudo</button>
     </div>
 
 </div>
 
 <footer>
-    FitLens © 2025 – Alimentação inteligente começa aqui.
+    <center>FitLens © 2026 | Tecnologia em Nutrição e Fitness</center>
 </footer>
+
+<script>
+    // BANCO DE DADOS EXPANDIDO 2026
+    const dados = {
+        treinos: [
+            { id: 1, t: "Hipertrofia", d: "Supino: 4x10, Agachamento: 4x12, Remada: 4x10" },
+            { id: 2, t: "Funcional", d: "Burpees: 3x15, Prancha: 1min, Corda: 2min" },
+            { id: 3, t: "Flexibilidade", d: "Yoga (Saudação ao Sol), Alongamento de Lombar e Pernas" },
+            { id: 4, t: "Resistência", d: "Corrida: 5km, Flexões: 3x máximo, Abdominais: 4x25" }
+        ],
+        dietas: [
+            { id: 10, t: "Low Carb", d: "Ovos mexidos, Frango com Legumes, Mix de Nozes" },
+            { id: 11, t: "Bulking (Massa)", d: "Mingau de aveia, Arroz, Feijão, Carne e Pasta de Amendoim" },
+            { id: 12, t: "Vegana", d: "Bowl de Grão-de-Bico, Quinoa com Vegetais, Shake de Proteína Ervilha" },
+            { id: 13, t: "Jejum Intermitente", d: "Janela 16/8: Proteínas magras e muita hidratação" }
+        ]
+    };
+
+    let itemAtual = null;
+
+    // FUNÇÃO PARA GERAR OPÇÕES
+    function gerar(tipo) {
+        const lista = tipo === 'treino' ? dados.treinos : dados.dietas;
+        itemAtual = lista[Math.floor(Math.random() * lista.length)];
+        
+        document.getElementById('res-titulo').innerText = (tipo === 'treino' ? "🏋️ " : "🥗 ") + itemAtual.t;
+        document.getElementById('res-corpo').innerText = itemAtual.d;
+        document.getElementById('btn-salvar').style.display = "block";
+    }
+
+    // FUNÇÃO PARA SALVAR NO NAVEGADOR (localStorage)
+    function salvarNoPerfil() {
+        if (!itemAtual) return;
+        
+        let salvos = JSON.parse(localStorage.getItem('fitlens_salvos')) || [];
+        salvos.push({ ...itemAtual, data: new Date().toLocaleDateString() });
+        
+        localStorage.setItem('fitlens_salvos', JSON.stringify(salvos));
+        alert("Salvo com sucesso no seu perfil!");
+        carregarPerfil();
+    }
+
+    // CARREGAR DADOS DO PERFIL
+    function carregarPerfil() {
+        const listaUI = document.getElementById('perfil-lista');
+        const salvos = JSON.parse(localStorage.getItem('fitlens_salvos')) || [];
+        
+        if (salvos.length === 0) {
+            listaUI.innerHTML = "Nenhum plano salvo ainda.";
+            return;
+        }
+
+        listaUI.innerHTML = salvos.map(item => `
+            <div class="saved-item">
+                <strong>${item.t}</strong> (${item.data})<br>
+                <small>${item.d}</small>
+            </div>
+        `).reverse().join('');
+    }
+
+    function limparPerfil() {
+        localStorage.removeItem('fitlens_salvos');
+        carregarPerfil();
+    }
+
+    // Inicia o perfil ao abrir a página
+    carregarPerfil();
+</script>
 
 </body>
 </html>
