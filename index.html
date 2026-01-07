@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FitLens - Alimentação e Treino Inteligente</title>
+    <style>
+        :root { --primary: #0fa56d; --secondary: #08c79c; --accent: #ff9800; --bg: #f4f7f6; }
+        body { margin: 0; font-family: 'Segoe UI', system-ui, sans-serif; background: var(--bg); color: #333; }
+        header { background: linear-gradient(135deg, var(--secondary), var(--primary)); color: white; padding: 40px 20px; text-align: center; box-shadow: 0 4px 12px rgba(0,0,0,0.1); }
+        .container { width: 95%; max-width: 800px; margin: auto; padding: 20px 0; }
+        
+        .card { background: white; padding: 20px; border-radius: 15px; box-shadow: 0 4px 15px rgba(0,0,0,0.05); margin-bottom: 25px; border-top: 5px solid var(--primary); }
+        .btn-group { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-bottom: 20px; }
+        
+        button { border: none; padding: 15px; border-radius: 10px; font-weight: bold; cursor: pointer; transition: 0.2s; font-size: 1rem; display: flex; align-items: center; justify-content: center; gap: 8px; }
+        .btn-treino { background: var(--primary); color: white; }
+        .btn-dieta { background: var(--secondary); color: white; }
+        .btn-save { background: var(--accent); color: white; margin-top: 15px; display: none; width: 100%; }
+        button:active { transform: scale(0.98); }
+
+        #display-result { margin-top: 15px; padding: 15px; background: #fff; border-radius: 10px; border: 1px solid #ddd; min-height: 80px; animation: fadeIn 0.5s; }
+        .profile-section { background: #fff8e1; border-top: 5px solid var(--accent); }
+        .saved-item { background: white; padding: 12px; border-radius: 8px; margin-bottom: 10px; border: 1px solid #ffe082; box-shadow: 0 2px 5px rgba(0,0,0,0.02); }
+        
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+        pre { white-space: pre-wrap; font-family: inherit; margin: 10px 0; color: #555; }
+        footer { text-align: center; padding: 20px; color: #888; font-size: 0.9rem; }
+    </style>
+</head>
+<body>
+
+<header>
+    <h1>FitLens v1.2</h1>
+    <p>Inteligência Nutricional em Tempo Real</p>
+</header>
+
+<div class="container">
+
+    <!-- ÁREA DE GERAÇÃO -->
+    <div class="card">
+        <h2 style="text-align:center; margin-top:0;">O que deseja hoje?</h2>
+        <div class="btn-group">
+            <button class="btn-treino" onclick="gerarConteudo('treino')">🏋️ Novo Treino</button>
+            <button class="btn-dieta" onclick="gerarConteudo('dieta')">🥗 Nova Dieta</button>
+        </div>
+
+        <div id="display-result">
+            <h3 id="res-titulo" style="margin-top:0; color: var(--primary);">Selecione uma opção...</h3>
+            <div id="res-corpo">Escolha entre sugestões de treinos ou dietas personalizadas para 2026.</div>
+            <button id="btn-salvar" class="btn-save" onclick="salvarNoPerfil()">⭐ Salvar no Meu Perfil</button>
+        </div>
+    </div>
+
+    <!-- ÁREA DO PERFIL -->
+    <div class="card profile-section">
+        <h2 style="margin-top:0;">📂 Meu Plano Ativo</h2>
+        <div id="perfil-lista">Você ainda não salvou nenhum plano hoje.</div>
+        <button onclick="limparHistorico()" style="background:none; color:#d32f2f; font-size:0.8rem; margin-top:15px; width:100%; text-decoration: underline;">Limpar Histórico</button>
+    </div>
+
+</div>
+
+<footer>
+    FitLens © 2026 | Alimentação Inteligente
+</footer>
+
+<script>
+    // BANCO DE DADOS ATUALIZADO 2026
+    const db = {
+        treinos: [
+            { t: "Hipertrofia (Ganho)", d: "• Supino Reto: 4x10\n• Agachamento: 4x12\n• Remada Curvada: 4x10\n• Descanso: 60s" },
+            { t: "Funcional (Queima)", d: "• Burpees: 3x15\n• Polichinelos: 1min\n• Prancha Dinâmica: 45s\n• Corrida: 2min" },
+            { t: "Mobilidade/Yoga", d: "• Saudação ao Sol: 5 reps\n• Postura da Criança: 2min\n• Alongamento de Quadril" },
+            { t: "Resistência Elite", d: "• Corrida: 5km Ritmo Leve\n• Flexões: 3x Falha\n• Abdominal Infra: 4x20" }
+        ],
+        dietas: [
+            { t: "Dieta Low Carb", d: "• Café: Ovos e Café s/ açúcar\n• Almoço: Frango, Salada Verde e Azeite\n• Jantar: Peixe grelhado com aspargos" },
+            { t: "Dieta Bulking", d: "• Café: Mingau de Aveia e Whey\n• Almoço: Arroz integral, Feijão e Patinho\n• Jantar: Macarrão com Atum e Ovos" },
+            { t: "Dieta Vegana", d: "• Café: Tofu mexido com Cúrcuma\n• Almoço: Bowl de Quinoa e Grão-de-bico\n• Jantar: Hambúrguer de Lentilha" },
+            { t: "Jejum Intermitente", d: "• Janela (12h-20h): Foco em Proteínas Magras\n• Hidratação: Água, Chá e Café Liberados" }
+        ]
+    };
+
+    let selecionado = null;
+
+    function gerarConteudo(tipo) {
+        const opcoes = tipo === 'treino' ? db.treinos : db.dietas;
+        selecionado = opcoes[Math.floor(Math.random() * opcoes.length)];
+        
+        document.getElementById('res-titulo').innerText = (tipo === 'treino' ? "🏋️ " : "🥗 ") + selecionado.t;
+        document.getElementById('res-corpo').innerHTML = `<pre>${selecionado.d}</pre>`;
+        document.getElementById('btn-salvar').style.display = "block";
+    }
+
+    function salvarNoPerfil() {
+        if (!selecionado) return;
+        let salvos = JSON.parse(localStorage.getItem('fitlens_v1')) || [];
+        salvos.push({ ...selecionado, data: new Date().toLocaleDateString('pt-BR') });
+        localStorage.setItem('fitlens_v1', JSON.stringify(salvos));
+        alert("Plano salvo no perfil!");
+        renderizarPerfil();
+    }
+
+    function renderizarPerfil() {
+        const lista = document.getElementById('perfil-lista');
+        const salvos = JSON.parse(localStorage.getItem('fitlens_v1')) || [];
+        
+        if (salvos.length === 0) {
+            lista.innerHTML = "Você ainda não salvou nenhum plano hoje.";
+            return;
+        }
+
+        lista.innerHTML = salvos.map((item, index) => `
+            <div class="saved-item">
+                <strong>${item.t}</strong> <small style="float:right">${item.data}</small><br>
+                <pre style="font-size:0.85rem; margin-bottom:0;">${item.d}</pre>
+            </div>
+        `).reverse().join('');
+    }
+
+    function limparHistorico() {
+        if(confirm("Deseja apagar todos os planos salvos?")) {
+            localStorage.removeItem('fitlens_v1');
+            renderizarPerfil();
+        }
+    }
+
+    // Inicialização
+    window.onload = renderizarPerfil;
+</script>
+
+</body>
+</html>
